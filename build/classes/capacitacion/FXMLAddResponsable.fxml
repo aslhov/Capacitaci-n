@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="217.0" prefWidth="528.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.102" fx:controller="capacitacion.FXMLAddLRMController">
+   <children>
+      <Pane fx:id="grupPlus" layoutX="14.0" layoutY="14.0" prefHeight="115.0" prefWidth="502.0" style="-fx-background-color: fff1e6; -fx-border-radius: 5em; -fx-background-radius: 5em;">
+         <children>
+            <Label layoutX="48.0" layoutY="50.0" text="Responsable:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txt_responsable" layoutX="132.0" layoutY="47.0" prefHeight="25.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <JFXButton layoutX="364.0" layoutY="164.0" onAction="#insertarResponsable" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #eda678; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Guardar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="217.0" layoutY="164.0" onAction="#Cancelar" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: ccc7c7; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Cancelar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

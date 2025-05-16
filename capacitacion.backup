@@ -1,0 +1,1156 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.2
+-- Dumped by pg_dump version 9.2.2
+-- Started on 2021-02-10 09:22:14
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 184 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2018 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 168 (class 1259 OID 57391)
+-- Name: capacitacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE capacitacion (
+    id bigint NOT NULL,
+    acciones character varying(255),
+    anyo_fin integer NOT NULL,
+    anyo_inicio integer NOT NULL,
+    cumplimiento boolean NOT NULL,
+    mes_fin character varying(255),
+    mes_inicio character varying(255),
+    tipo_accion character varying(255),
+    trimestre character varying(255),
+    lugar_id bigint,
+    modo_formacion_id bigint,
+    responsable_id bigint
+);
+
+
+ALTER TABLE public.capacitacion OWNER TO postgres;
+
+--
+-- TOC entry 169 (class 1259 OID 57397)
+-- Name: capacitacion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE capacitacion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.capacitacion_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2019 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: capacitacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE capacitacion_id_seq OWNED BY capacitacion.id;
+
+
+--
+-- TOC entry 170 (class 1259 OID 57399)
+-- Name: cargo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cargo (
+    id bigint NOT NULL,
+    cargo character varying(255)
+);
+
+
+ALTER TABLE public.cargo OWNER TO postgres;
+
+--
+-- TOC entry 171 (class 1259 OID 57402)
+-- Name: cargo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cargo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cargo_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2020 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: cargo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE cargo_id_seq OWNED BY cargo.id;
+
+
+--
+-- TOC entry 172 (class 1259 OID 57404)
+-- Name: especialidad; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE especialidad (
+    id bigint NOT NULL,
+    nomb_especialidad character varying(255)
+);
+
+
+ALTER TABLE public.especialidad OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 57407)
+-- Name: especialidad_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE especialidad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.especialidad_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2021 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: especialidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE especialidad_id_seq OWNED BY especialidad.id;
+
+
+--
+-- TOC entry 174 (class 1259 OID 57409)
+-- Name: grupo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE grupo (
+    id bigint NOT NULL,
+    nombregrupo character varying(255)
+);
+
+
+ALTER TABLE public.grupo OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 57412)
+-- Name: grupo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE grupo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.grupo_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2022 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: grupo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE grupo_id_seq OWNED BY grupo.id;
+
+
+--
+-- TOC entry 176 (class 1259 OID 57414)
+-- Name: lugar; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lugar (
+    id bigint NOT NULL,
+    nombrelugar character varying(255)
+);
+
+
+ALTER TABLE public.lugar OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 57417)
+-- Name: lugar_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE lugar_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lugar_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2023 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: lugar_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE lugar_id_seq OWNED BY lugar.id;
+
+
+--
+-- TOC entry 178 (class 1259 OID 57419)
+-- Name: modo_formacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE modo_formacion (
+    id bigint NOT NULL,
+    m_form character varying(255)
+);
+
+
+ALTER TABLE public.modo_formacion OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 57422)
+-- Name: modo_formacion_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE modo_formacion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.modo_formacion_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2024 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: modo_formacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE modo_formacion_id_seq OWNED BY modo_formacion.id;
+
+
+--
+-- TOC entry 180 (class 1259 OID 57424)
+-- Name: responsable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE responsable (
+    id bigint NOT NULL,
+    nomb_responsable character varying(255)
+);
+
+
+ALTER TABLE public.responsable OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 57427)
+-- Name: responsable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE responsable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.responsable_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2025 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: responsable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE responsable_id_seq OWNED BY responsable.id;
+
+
+--
+-- TOC entry 182 (class 1259 OID 57429)
+-- Name: trabajador; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE trabajador (
+    id character varying(255) NOT NULL,
+    nroidentidad character varying(255) NOT NULL,
+    direccion character varying(255),
+    municipio character varying(255),
+    nombre character varying(255) NOT NULL,
+    cargo_id bigint,
+    especialidad_id bigint,
+    grupo_id bigint
+);
+
+
+ALTER TABLE public.trabajador OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 57435)
+-- Name: trabajador_capacitacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE trabajador_capacitacion (
+    trabajador_id character varying(255) NOT NULL,
+    capacitacion_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.trabajador_capacitacion OWNER TO postgres;
+
+--
+-- TOC entry 1962 (class 2604 OID 57438)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY capacitacion ALTER COLUMN id SET DEFAULT nextval('capacitacion_id_seq'::regclass);
+
+
+--
+-- TOC entry 1963 (class 2604 OID 57439)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY cargo ALTER COLUMN id SET DEFAULT nextval('cargo_id_seq'::regclass);
+
+
+--
+-- TOC entry 1964 (class 2604 OID 57440)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY especialidad ALTER COLUMN id SET DEFAULT nextval('especialidad_id_seq'::regclass);
+
+
+--
+-- TOC entry 1965 (class 2604 OID 57441)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY grupo ALTER COLUMN id SET DEFAULT nextval('grupo_id_seq'::regclass);
+
+
+--
+-- TOC entry 1966 (class 2604 OID 57442)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lugar ALTER COLUMN id SET DEFAULT nextval('lugar_id_seq'::regclass);
+
+
+--
+-- TOC entry 1967 (class 2604 OID 57443)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY modo_formacion ALTER COLUMN id SET DEFAULT nextval('modo_formacion_id_seq'::regclass);
+
+
+--
+-- TOC entry 1968 (class 2604 OID 57444)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY responsable ALTER COLUMN id SET DEFAULT nextval('responsable_id_seq'::regclass);
+
+
+--
+-- TOC entry 1995 (class 0 OID 57391)
+-- Dependencies: 168
+-- Data for Name: capacitacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY capacitacion (id, acciones, anyo_fin, anyo_inicio, cumplimiento, mes_fin, mes_inicio, tipo_accion, trimestre, lugar_id, modo_formacion_id, responsable_id) FROM stdin;
+1	cambio climatico	2020	2020	f	diciembre	febrero	plan	cuarto trimestre	1	12	1
+2	linux	2020	2020	f	diciembre	marzo	plan	cuarto trimestre	4	12	2
+3	plan de economia	2020	2020	f	diciembre	abril	plan	cuarto trimestre	2	12	3
+4	cuadros	2020	2020	f	diciembre	mayo	plan	cuarto trimestre	5	12	4
+\.
+
+
+--
+-- TOC entry 2026 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: capacitacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('capacitacion_id_seq', 1, false);
+
+
+--
+-- TOC entry 1997 (class 0 OID 57399)
+-- Dependencies: 170
+-- Data for Name: cargo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cargo (id, cargo) FROM stdin;
+2	AYUDANTE GENERAL DE ELABORACION
+3	COCINERO INTEGRAL C
+4	ENCARGADO DE ALMACEN
+5	TEC.A EN GESTION ECONOMICA
+6	OPERADOR GNRAL DE MTTO Y REPARACION
+7	DIRECTOR
+8	JEFE DEPARTAMENTO
+10	JEFE GRUPO
+11	TEC. DEFENSA Y DEFENSA CIVIL
+12	ESPECIALISTA C EN GESTION ECONOMICA
+14	TEC. CTROL PROG ASEG ACTV
+15	TEC. EN GESTION COMERCIAL
+16	EGRESADOS
+17	AGENTE B SEGURIDAD Y PROTECCION
+18	OPERARIO GENERAL DE MANTENIMIENTO
+19	OPERARIO DE MAQUINAS HERRAMINETAS B
+20	CHOFER C
+21	AUXILIAR DE LIMPIEZA
+22	TEC. EN OBRAS DE ARQUITECTURA
+23	ESP. C EN GESTION ECONOMICA EP
+24	ESP. C EN  RECURSOS HUMANOS
+25	OBSERVADOR METEOROLOGICO
+26	OBSERVADOR REVISOR MET
+27	OBSERVADOR PRINCIPAL MET
+28	ESPECIALISTA EN METEOROLOGIA EP)
+30	TEC.SUPERIOR EN METEOROLOGIA
+31	MECANICO DIESEL B
+32	SUB-DIRECTOR
+13	\N
+29	ESPECIALISTA EN METEOROLOGIA
+9	TEC.A GEST.DE RECURSOS HUMANOS
+1	SECRETARIA
+\.
+
+
+--
+-- TOC entry 2027 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: cargo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('cargo_id_seq', 7, true);
+
+
+--
+-- TOC entry 1999 (class 0 OID 57404)
+-- Dependencies: 172
+-- Data for Name: especialidad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY especialidad (id, nomb_especialidad) FROM stdin;
+3	GEOLOG.MINERA Y METALURG.
+4	ING. GEOFISICA
+5	GEOLOG.Y EXPLOR.DE YACIM.
+6	PROC.GEOF.BUSQ.EXPLOR.YAC
+7	EXPLOT.YACIM.Y MINERALES
+8	ELECTROMEC.MINERO-METALUR
+9	ING.EN METALURGIA
+11	ING.EXPLOTACION DE MINAS
+12	ING. EN ENERGETICA
+13	ING.TERMOENERGETICA
+14	ING.ELECTROENERGETICA
+15	ING.ENERGETICA NUCLEAR
+16	ING.REFRIGERACION Y CLIM.
+17	INGENIERIA ELECTRICA
+18	INGENIERIA FISICA
+19	CONSTRUCCION MAQUINARIAS
+20	TECN.CONSTRUC.MAQUINARIAS
+21	ING.MAQUINARIA AZUCARERA
+22	ING.MECANICA INDUSTRIAL
+23	ING.TECNICA CRIOGENICA
+24	ING.AZUCAR,QUIM.Y ALIMEN.
+25	ING.TECN.PRODUCCION AZUC.
+26	ING.TECN.PRODUCCION QUIM.
+27	ING.TECN.PRODUC.ALIMENTOS
+28	ING.AGROINDUSTR.AZUCARERA
+29	ING.TECN.MECANICA AZUCAR.
+31	ING.EN ELECTRONICA
+32	ING EN TELECOMUNICACIONES
+33	ING.EN CONTROL AUTOMATICO
+34	INGENIERO EN SAD
+35	ING.EQUIPOS/COMPON.ELECTR
+36	ING.MAQUINAS COMPUTADORAS
+37	ING.EN TRANSPORTE
+38	ING.TRANSPORTE AUTOMOTOR
+39	INGTRANSPORTE FERROVIARIO
+40	ING.CARTOGRAFIA
+41	ING.EXPLO.TRANSP.MARITIMO
+42	MEC.PROC.CARGA/DESC.PUERT
+43	ING.MECANICA (TRANSPORTE)
+44	ING.MEC.PROC.CARGA/DESCAR
+45	ING.MECANICA AUTOMOTRIZ
+46	ING.EXPLOTACION TRANSPORT
+47	ING. EN CONSTRUCCION
+48	ING. HIDRAULICA
+49	ING. EN ESTRUCTURAS
+50	ING.VIAS COMUNICACIONES
+51	ING.OBRAS DE TRANSPORTE
+52	ING.OBRAS ESTRUCTURALES
+53	ING.PRODUC.AGROPECUARIA
+54	ING. EN AGRONOMIA
+55	ING.PECUARIA
+56	ING.FORESTAL
+57	ING.RIEGO Y DRENAJE
+58	ING.MECANIZ PROD.AGROPEC.
+59	DR. MEDICINA VETERINARIA
+60	ING.SANIDAD VEGETAL
+61	LIC. EN ECONOMIA
+62	LIC.PLANIF.DE LA ECO.NAC.
+63	LIC.ECONOMIA DE INDUSTRIA
+64	LIC.ECON.COMERC.EXTERIOR
+65	LIC.EN CONTABILIDAD
+66	LIC. FINANZAS Y CREDITOS
+67	INGENIERO INDUSTRIAL
+68	LIC.ECONOMIA AGROPECUARIA
+69	LIC.ECONOMIA TRANSPORTE
+70	LIC. EN METEOROLOGIA
+71	LIC.EN CONTROL ECONOMICO
+72	LIC.RELAC.ECONOM.INTERNAC
+73	LIC.DIR.DE LA ECONOMIA
+74	LIC.CONTABILIDAD/FINANZAS
+75	SALUD PUBLICA-CULT.FISICA
+76	DOCTOR EN MEDICINA
+77	DOCTOR EN ESTOMATOLOGIA
+78	LIC.EN ENFERMERIA
+79	LIC. EN EDUCACION FISICA
+80	LIC. EN DEPORTES
+81	LIC.HIGIENE SALUD Y EPIDE
+82	LIC.CIENC.NATUR.Y EXACTAS
+83	LIC.EN MATEMATICA
+85	LIC. EN FISICA
+86	LIC. EN QUIMICA
+87	LIC. EN GEOGRAFIA
+88	LIC. EN BIOQUIMICA
+89	LIC. EN ALIMENTOS
+91	LIC. EN BIOLOGIA
+92	LIC. EN PSICOLOGIA
+93	LIC. EN FISICA ASTRONOMIA
+94	ING. MECANICA
+95	LIC. EN MICROBIOLOGIA
+96	LIC. EN BIOLOGIA MARINA
+97	LIC. EN FISICA NUCLEAR
+98	LIC. EN RADIOQUIMICA
+99	LIC. EN HISTORIA
+100	LIC.FILOSF.MARXISTA-LENIN
+101	DOCTOR EN DERECHO
+102	LIC. EN HISTORIA DEL ARTE
+103	LIC. EN PLANIFICACION
+104	LIC. EN LENGUA RUSA
+105	LIC. EN LENGUA INGLESA
+106	LIC. EN LENGUA ALEMANA
+107	LIC. EN LENGUA FRANCESA
+108	LIC.INF.CIEN-TECN.Y BIBL.
+109	LIC.RELACIONES INTERNAC.
+110	LIC. EN ECONOMIA POLITICA
+111	LIC. EN CIENCIAS SOCIALES
+112	LIC. CIENCIAS POLITICAS
+113	LIC.LENGUA Y LIT.RUSA
+114	LIC.LENGUA Y LIT.INGLESA
+115	LIC.LENGUA Y LIT.ALEMANA
+116	LIC.LENGUA Y LIT.FRANCESA
+117	LIC.RELAC.POLITICAS.INTER
+118	DR. EN PEDAGOGIA
+119	LIC.EN PEDAGOGIA
+120	LIC.EDUCACION MATEMATICA
+121	LIC.EDUCAC.ESPAñOL Y LIT.
+122	LIC.EDUC.FISICA Y ASTRON.
+123	LIC.EDUCACION QUIMICA
+124	LIC.EDUCACION BIOLOGIA
+125	LIC.EDUCACION GEOGRAFIA
+126	LIC.EDUC.HISTORIA Y C.SOC
+127	LIC.EDUC.LAB.DIBUJO TECN.
+128	LIC.EDUC,PEDAG.Y PSICOLOG
+129	LIC.ED.LENG.EXTRANJ.RUSA
+84	\N
+90	LIC.CIENCIAS COMPUTACION
+130	LIC.ED.LENG.EXTR.INGLESA
+2	EDUCACION SUPERIOR
+30	ING.ELECTRONICA AUTO.COMU
+131	LIC.ED.LENG.EXTR.ALEMANA
+132	LIC.ED.LENG.EXTR.FRANCESA
+133	LIC.ED.LENG.EXTR.ESPAñOL
+134	LIC.EN EDUCACION FISICA
+135	LIC.ED.ELECTROENERGETICA
+136	LIC.ED.CONSTR.MAQUINARIA
+137	LIC.ED.QUIMICA INDUSTRIAL
+138	LIC.ED.TECN.PROC.QUIMICOS
+139	LIC.ED.PROC.INSTR.CONTROL
+140	LIC.ED.TELECOMUNICACIONES
+141	LIC.ED.ELECTROM.AUTOMOTOR
+142	LIC. EN EDUCACION CIVIL
+143	LIC.EDUC.EDIFICACIONES
+144	LIC.EDUCACION AGRONOMICA
+145	LIC.EDUCACION PECUARIA
+146	LIC.EDUCACION VETERINARIA
+147	LIC.ED.MECAN.PROD.AGROPEC
+148	LIC. EDUCACION ECONOMIA
+149	LIC.EDUC.DEFECTOLOGIA
+150	LIC.ED.EDUCACION PRIMARIA
+151	LIC.PROF.SUP.MATEMATICA
+152	LIC.PROF.SUPERIOR QUIMICA
+153	LIC.PROF.SUPERIOR FISICA
+154	LIC.PROF.SUPER. BIOLOGIA
+155	LIC.PROF.SUPER.ESPAñOL
+156	LIC.PROF.SUP DE GEOGRAFIA
+157	LIC.PROF.SUPER.HISTORIA
+158	LIC.PROF.SUPERIOR INGLES
+159	LIC.PROF.SUPERIOR ALEMAN
+160	LIC.PROF.SUPERIOR FRANCES
+161	LIC.PROF.SUPERIOR DE RUSO
+162	LIC.PROF.SUPER.ECONOMIA
+163	LIC.PROF.SUP.ELECTRONICA
+164	LIC.PROF.SUPERIOR ENERGIA
+165	LIC.PROF.SUP.DE MECANICA
+166	LIC.PROF.SUP.DE AGRONOMIA
+167	LIC.PROF.SUP.RIEGO/DRENAJ
+168	LIC.PROF.SUP.PROD.VEGETAL
+169	LIC.PROF.SUPER. PECUARIA
+170	LIC.PROF.SUP.PATOL.ANIMAL
+171	LIC.PROF.SUP. VETERINARIA
+172	LIC.PROF.SUP.MEC.AGRICOLA
+173	LIC.PROF.SUP.CONSTRUCCION
+174	LIC.PROF.SUP.PROC.QUIMICO
+175	LIC.PROF.SUP.FIL.MARXISTA
+176	LIC.PROF.SUP.COMUNISMO C.
+177	LIC.PROF.SUP.ECO.POLITICA
+178	LIC.PROF.MEDIA MATEMATICA
+179	LIC.PROF.MED.GEN.QUIMICA
+180	LIC.PROF.MEDIA GEN.FISICA
+181	LIC.PROF.MED.GEN.BIOLOGIA
+182	LIC.PROF.MED.GEN.ESPAñOL
+183	LIC.PROF.MEDIA GEOGRAFIA
+184	LIC.PROF.MED.GEN.HISTORIA
+185	LIC.PROF.MED.GEN.INGLES
+186	LIC.PROF.MED.EDUC.LABORAL
+187	LIC.PROF.MED.BAS.ALEMAN
+188	LIC.PROF.MED.BAS.FRANCES
+189	LIC.PROF.MED.BAS.DE RUSO
+190	TM TRADUCT/INTERP. ALEMAN
+191	TM TRAUDCT/INTERP. ARABE
+192	TM TRAUDCT/INTERP.BULGARO
+193	TM TRADUCT/INTERP.FRANCES
+194	TM TRADUCT/INTERP.HUNGARO
+195	TM TRADUCT/INTERP. INGLES
+196	TM TRADUCT/INTERP.JAPONES
+197	TM TRADUCT/INTERP. POLACO
+198	TM TRADUCT/INTERP. RUMANO
+199	TM TRADUCT/INTERP. RUSO
+200	TM TRADUCT/INTERP.VIETNAM
+201	TM TRADUCT/INTER.ESLOVACO
+202	TM TRADUCT/INTERP. SERVIO
+203	TM TRADUC/INTER.PORTUGUES
+204	TM TRADUCT/INTERP.AMARICO
+205	TM PROF.LENGUA EXTRANJERA
+206	TM EDUCACION CONTABILIDAD
+207	LIC. EN ARTE
+208	LIC. EN MUSICA
+209	LIC. EN MARXISMO LENINIS
+210	LIC. EN ARTES ESCENICAS
+211	PREUNIVERSITARIO
+212	FACULTAD OBRERA-CAMPESINA
+213	TM GEOLOG.MINERA/METALURG
+214	TM GEOL.Y PROSP.YAC.MINE.
+215	TM EXPLOT DE YAC.MINERAL.
+216	TM METALURGIA
+217	TM GEODESIA Y CARTOGRAFIA
+218	TM PLANIFICACION
+219	TM CONSTRUC.MAQUINARIAS
+220	TM CONST.MAQ.E INSTRUMEN.
+221	TM INDUSTRIA AZUCARERA
+222	TM TECNOLOGIA QUIMICA
+223	TM TECNOLOGIA ALIMENTOS
+224	TM AGROINDUSTRIAL AZUCAR.
+225	TM ELEC.,AUTOM.Y COMUNIC.
+226	TM ELECTRONICA
+227	TM COMUNIC.Y RADIOTECNICA
+228	TM TRANSPORTE
+229	TM TRANSPORTE AUTOMOTOR
+230	TM RADIOMECANICA
+231	TM TECNICA DE AVIACION
+232	TM TRANSPORTE MARITIMO
+233	TM CONSTRUCCION
+234	TM PRODUCCION AGROPECUAR.
+235	TM ECONOMIA
+236	TM SISTEMAS TELEFONICOS
+237	TM ANATOMIA PATOLOGICA
+238	TM BANCO DE SANGRE
+239	TM RIEGO Y DRENAJE
+240	TM BIBLIOTECOLOGIA MEDICA
+241	TM CONSERVAS Y QUIMICA
+242	TM PREF. HORMIGON
+243	TM DIETETICA
+244	TM ENFERMERIA GENERAL
+245	TM ENFERMERIA PEDIATRICA
+246	TM ENFERMERIA OBSTETRICA
+247	TM ENFERMERIA NAVAL
+248	TM ESTOMOLOGIA MEDICA
+249	TM ELECTROFISIOLOGIA
+250	TM ERGOTERAPIA PSIQUIATR.
+251	TM ESTADISTICA DE SALUD
+252	TM ESTOMATOLOGIA CLINICA
+253	TM FORESTAL
+254	TM FARMACIA INDUSTRIAL
+255	TM FISIOTERAPIA
+256	TM GASTROENTEROLOGIA
+257	TM HIGIENE/EPIDEMIOLOGIA
+258	TM ICONOPATOGRAFIA
+259	TM LABORATORIO CLINICO
+260	TM LABORATORIO
+261	TM LOGOPEDIA Y FONIATRIA
+262	TM MEDICINA NUCLEAR RADIO
+263	TM MICROBIOLOGIA
+264	TM ADMINISTRACION SALUD
+265	TM ADMINISTRACION FARMAC.
+266	TM OFTALMOLOGIA
+267	TM PROTESIS DENTAL
+268	TM PROTESIS ORTOPEDICAS
+269	TM EDUCACION PRIMARIA
+270	TM QUIMICO SANITARIO
+271	TM RADIOFISICA MEDICA
+272	TM TEXTIL
+273	TM TERAPIA FIS Y REHABIL.
+274	TM TERAPIA OCUPACIONAL
+275	TM TRABAJADOR SANITARIO
+276	TM TRAB. SOCIAL DE SALUD
+277	TM RADIOTERAPIA Y RADIUM
+278	TM MECANICO ORTOPEDICO
+279	TM TANATOLOGIA MED. LEGAL
+280	TM ARTE
+281	TM MECANIZACION
+282	TM ARTES PLASTICAS
+283	TM BIBLIOTECOLOGIA
+284	TM ARTES DRAMATICAS
+285	TM DISEñO INDUSTRIAL
+286	TM INSTRUCTORES DE ARTE
+287	TM BIOLOGIA MARINA
+288	TM DANZA
+289	TM CITRICO
+290	TM MUSEOLOGIA
+291	TM OTRAS ESPEC. DE ARTE
+292	TM ARTE INDUSTRIA LIGERA
+293	TM PROGRAMACION COMPUTADO
+294	TM GASTRONOMIA/ALOJAMIENT
+295	TM ED.FORMAC.PERSONAL DOC
+296	AUTODIDACTA
+297	TM EN METEOROLOGIA
+298	INGENIERIA MILITAR
+299	ING.MECANICA (CONST.MAQ)
+300	TM PROGRAMACION COMPUTAD.
+301	TM EMPIRICO (RESOLUCION)
+302	LIC.ESTADISTICA ECONOMICA
+303	TM EN DERECHO LABORAL
+304	TM EN OTS
+305	TM EN PHT
+306	TM ECONOMIA DEL TRABAJO
+307	LIC. EN DERECHO
+308	LIC.EN METEOROLOGIA
+309	INGENIERO METEOROLOGO
+310	INGENIERO OCEANOLOGO
+311	TM CONSTRUCCION CIVIL
+312	TM AGRONOMIA
+313	TM EN QUIMICA
+314	ING. RADIOTECNICO
+315	LIC.MECANICO MATEMATICO
+316	TM COMERCIO INTERIOR
+317	TM EN ZOOTECNIA
+318	TM EN TOPOGRAFIA
+319	ING.AGROMETEOROLOGICO
+320	TEC.SANIDA VEGETAL
+321	TM MECANICA DE TALLER
+322	TM EN SECRETARIADO
+323	TM EN REFRIGERACION
+324	TM. HOTELERIA Y TURISMO
+325	ING.TELECOMUNICACIONES
+326	TEC. ARTILLERIA TERRESTRE
+327	TEC EN INFORMATICA
+328	TM CINECIAS COMPUTACION
+329	TM MANTENIMIENTO ELECTRIC
+330	ING. EXPLOT TRANSP AEREO
+331	MAESTRO PRIMARIO
+332	GESTION DOCUMENTAL
+333	T/M EN SERV GASTRONOMICOS
+334	ING. FORESTAL
+335	LIC. EN CIENCIAS PENALES
+336	TEC. EN CONFECCIONES
+337	TEC. M EN CONTROL CALIDAD
+338	TEC. CONTABILIDAD
+339	MEDICO VETERINARIO
+1	\N
+10	ING. EN GEOLOGIA
+\.
+
+
+--
+-- TOC entry 2028 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: especialidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('especialidad_id_seq', 1, false);
+
+
+--
+-- TOC entry 2001 (class 0 OID 57409)
+-- Dependencies: 174
+-- Data for Name: grupo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY grupo (id, nombregrupo) FROM stdin;
+2	GRUPO DE PRONOSTICOS
+6	GRUPO DE ADMINISTRACION
+7	E.M. SANCTI SPIRITUS
+8	E.M. EL JIBARO
+9	E.M. TOPES DE COLLANTES
+10	E.M. TRINIDAD
+11	GRUPO SEGURIDAD Y PROTECC
+12	DIRECCION
+4	\N
+3	GRUPO CIENTIFICO
+5	GR.ATEN.RED DE ESTACIONES
+1	SUB-DIRECCION
+\.
+
+
+--
+-- TOC entry 2029 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: grupo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('grupo_id_seq', 1, false);
+
+
+--
+-- TOC entry 2003 (class 0 OID 57414)
+-- Dependencies: 176
+-- Data for Name: lugar; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lugar (id, nombrelugar) FROM stdin;
+1	citma
+2	cmpss
+3	uma
+4	cesam
+5	pcc
+\.
+
+
+--
+-- TOC entry 2030 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: lugar_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('lugar_id_seq', 1, false);
+
+
+--
+-- TOC entry 2005 (class 0 OID 57419)
+-- Dependencies: 178
+-- Data for Name: modo_formacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY modo_formacion (id, m_form) FROM stdin;
+1	Adiestramiento Laboral
+2	Curso de habilitacion
+3	Curso de perfeccionamiento
+4	Curso de promocion
+5	Cursos de posgrado
+6	Entrenamientos en el puesto de trabajo
+7	Diplomado
+8	Maestria
+9	Especialidad
+10	Doctorado
+11	Taller
+12	Seminario
+13	Conferencia
+14	Autopreparacion
+15	Otros modos de formacion
+\.
+
+
+--
+-- TOC entry 2031 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: modo_formacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('modo_formacion_id_seq', 1, false);
+
+
+--
+-- TOC entry 2007 (class 0 OID 57424)
+-- Dependencies: 180
+-- Data for Name: responsable; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY responsable (id, nomb_responsable) FROM stdin;
+1	Celia
+2	Magyana
+3	Dania
+4	Miguel
+\.
+
+
+--
+-- TOC entry 2032 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: responsable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('responsable_id_seq', 1, false);
+
+
+--
+-- TOC entry 2009 (class 0 OID 57429)
+-- Dependencies: 182
+-- Data for Name: trabajador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY trabajador (id, nroidentidad, direccion, municipio, nombre, cargo_id, especialidad_id, grupo_id) FROM stdin;
+87605	66080802183	CARRETERA CENTRAL KM 384 ZONA DESARROL	SANCTI-SPIRITUS	FERNANDO  MEDINILLA NAPOLES	29	70	2
+87601	52042501367	EDIFICIO 17 APTO.22 OLIVO 3	SANCTI-SPIRITUS	ALFREDO SEBASTIAN RUIZ ARIAS	29	17	2
+87400	71070601601	EDUARDO R CHIBAS # 164 / C Y D	CABAIGUAN	MIGUEL EDUARDO GARCIA RUIZ	7	4	12
+87603	71090301742	16 S/N/11 Y 15 ZONA DESARROLLO	SANCTI-SPIRITUS	ALAIN  MARTINEZ RIVEROL	29	93	2
+87700	66012603052	EDF 31 APTO 10 OLIVOS 2	SANCTI-SPIRITUS	CELIA MARIA PINA NAVARRO	28	124	3
+87607	62092803181	BIENVENIDO PARDILLO NO.46	SANCTI-SPIRITUS	REINALDO ELIODORO RODRIGUEZ GUZMAN	30	17	2
+87604	77010413521	JOSE GLZ T NR 132 LUZ CAB Y E PEREZ	GUAYOS	YOSMANY  MESA PEREZ	29	85	2
+87606	69091103581	AVE 26 JULIO NR 191A COLON	SANCTI-SPIRITUS	ANTONIO CESAR ORTEGA OBREGON	29	87	2
+87602	56041403465	CALLE 16 NR 18A /9 Y 11 ZONA DES C HAB	SANCTI-SPIRITUS	EVARISTO MIGUEL RIVERO PEREZ	29	91	2
+87701	71112201684	CALLE H SUR S/N	SANCTI-SPIRITUS	OSMANY  CEBALLO MELENDREZ	29	10	3
+87800	56080602179	EDF-40 APTO 24 OLIVOS 2	SANCTI-SPIRITUS	LILLIAN MARTHA MENDEZ SANCHEZ	28	87	5
+87801	52071002683	MARTI SUR 167/AGRAMONTE Y POPULA	SANCTI-SPIRITUS	ORELIO CARMELO JIMENEZ LOPEZ	30	17	5
+87803	65053003123	RANFLA 112/LINEA Y CESPEDES	SANCTI-SPIRITUS	FERNANDO  ALVAREZ CORRALES	30	17	5
+87802	76011108201	MODULO # 42 APTO 3 26 DE JULIO	SANCTI-SPIRITUS	YASMAR  DIAZ PEREIRA	29	329	5
+88200	66071701891	CARRT.AEROPUERTO KM2 #12	SANCTI-SPIRITUS	ODALYS MARIA LORENZO HERNANDEZ	27	17	7
+88204	64110217387		SANCTI-SPIRITUS	JOSE REGINO CASTELLON ORDOÑES	25	209	7
+88202	52040313904	MARTI NORTE 519 A	SANCTI-SPIRITUS	JOSE MANUEL LOZANO MONTAGNE	25	301	7
+88301	60092916407		SANCTI-SPIRITUS	MIGUEL MARIANO DIAZ HERNANDEZ	26	17	8
+88303	61010701697	FERROLANA	LA SIERPE	MARIA JULIA ROMAN CONTRERA	25	17	8
+32336	89110432336	Inva	Yaguajay	Dianelis Portal	29	90	3
+45662	931222	olivos1	Sancti Spíritus	Jenice medinilla	29	10	3
+12021	93122214015	fgfdgg	Cabaiguán	hh	9	2	5
+1222	23222	dfsd	Fomento	dddsfs	1	30	1
+\.
+
+
+--
+-- TOC entry 2010 (class 0 OID 57435)
+-- Dependencies: 183
+-- Data for Name: trabajador_capacitacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY trabajador_capacitacion (trabajador_id, capacitacion_id) FROM stdin;
+87605	1
+87601	2
+87400	3
+87603	4
+\.
+
+
+--
+-- TOC entry 1970 (class 2606 OID 57446)
+-- Name: capacitacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY capacitacion
+    ADD CONSTRAINT capacitacion_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1972 (class 2606 OID 57448)
+-- Name: cargo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cargo
+    ADD CONSTRAINT cargo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1974 (class 2606 OID 57450)
+-- Name: especialidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY especialidad
+    ADD CONSTRAINT especialidad_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1976 (class 2606 OID 57452)
+-- Name: grupo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY grupo
+    ADD CONSTRAINT grupo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1978 (class 2606 OID 57454)
+-- Name: lugar_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lugar
+    ADD CONSTRAINT lugar_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1980 (class 2606 OID 57456)
+-- Name: modo_formacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY modo_formacion
+    ADD CONSTRAINT modo_formacion_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1982 (class 2606 OID 57458)
+-- Name: responsable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY responsable
+    ADD CONSTRAINT responsable_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1986 (class 2606 OID 57460)
+-- Name: trabajador_capacitacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY trabajador_capacitacion
+    ADD CONSTRAINT trabajador_capacitacion_pkey PRIMARY KEY (trabajador_id, capacitacion_id);
+
+
+--
+-- TOC entry 1984 (class 2606 OID 57462)
+-- Name: trabajador_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY trabajador
+    ADD CONSTRAINT trabajador_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1993 (class 2606 OID 57463)
+-- Name: fk_1wb5dnp9ljuqgyf8d0e6tkgwa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trabajador_capacitacion
+    ADD CONSTRAINT fk_1wb5dnp9ljuqgyf8d0e6tkgwa FOREIGN KEY (capacitacion_id) REFERENCES capacitacion(id);
+
+
+--
+-- TOC entry 1990 (class 2606 OID 57468)
+-- Name: fk_2xi5iqsdq99pl85s7c3irycf9; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trabajador
+    ADD CONSTRAINT fk_2xi5iqsdq99pl85s7c3irycf9 FOREIGN KEY (especialidad_id) REFERENCES especialidad(id);
+
+
+--
+-- TOC entry 1991 (class 2606 OID 57473)
+-- Name: fk_6f4atmli7xyisqviosr6wtccs; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trabajador
+    ADD CONSTRAINT fk_6f4atmli7xyisqviosr6wtccs FOREIGN KEY (cargo_id) REFERENCES cargo(id);
+
+
+--
+-- TOC entry 1987 (class 2606 OID 57478)
+-- Name: fk_befps4gkhb6w9df9ryqjj6qbd; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY capacitacion
+    ADD CONSTRAINT fk_befps4gkhb6w9df9ryqjj6qbd FOREIGN KEY (responsable_id) REFERENCES responsable(id);
+
+
+--
+-- TOC entry 1988 (class 2606 OID 57483)
+-- Name: fk_cywvov7c1qaihl5rv3v7ouyxa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY capacitacion
+    ADD CONSTRAINT fk_cywvov7c1qaihl5rv3v7ouyxa FOREIGN KEY (lugar_id) REFERENCES lugar(id);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 57488)
+-- Name: fk_fx76bck8vem5drr6b8e04ansp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY capacitacion
+    ADD CONSTRAINT fk_fx76bck8vem5drr6b8e04ansp FOREIGN KEY (modo_formacion_id) REFERENCES modo_formacion(id);
+
+
+--
+-- TOC entry 1994 (class 2606 OID 57493)
+-- Name: fk_kx4rhsalmfomqvg7q7l3r11hk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trabajador_capacitacion
+    ADD CONSTRAINT fk_kx4rhsalmfomqvg7q7l3r11hk FOREIGN KEY (trabajador_id) REFERENCES trabajador(id);
+
+
+--
+-- TOC entry 1992 (class 2606 OID 57498)
+-- Name: fk_l3ndxschvxrke00rpnc9k5euh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY trabajador
+    ADD CONSTRAINT fk_l3ndxschvxrke00rpnc9k5euh FOREIGN KEY (grupo_id) REFERENCES grupo(id);
+
+
+--
+-- TOC entry 2017 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2021-02-10 09:22:15
+
+--
+-- PostgreSQL database dump complete
+--
+

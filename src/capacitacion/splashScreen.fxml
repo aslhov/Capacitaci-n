@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="689.0" style="-fx-background-color: #E45652;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capacitacion.splashScreeenController">
+    <children>
+      <Pane layoutX="6.0" layoutY="9.0" prefHeight="350.0" prefWidth="683.0">
+         <children>
+            <ProgressBar fx:id="progressBar" layoutX="229.0" layoutY="226.0" prefHeight="18.0" prefWidth="432.0">
+               <effect>
+                  <DropShadow color="#07fa00" />
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ProgressBar>
+            <Label layoutX="96.0" layoutY="288.0" prefHeight="27.0" prefWidth="565.0" text="Software para la gestión de la capacitación de los recursos humanos" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="progress" layoutX="229.0" layoutY="255.0" prefHeight="20.0" prefWidth="124.0" text="Cargando" textFill="#fcf9f9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Line endX="-10.666656494140625" endY="257.6666564941406" layoutX="23.0" layoutY="15.0" startX="-10.666656494140625" startY="-15.0" stroke="WHITE" />
+            <Line endX="599.6666870117188" endY="9.0" layoutX="68.0" layoutY="275.0" startX="-47.666656494140625" startY="9.0" stroke="WHITE" />
+            <ImageView fitHeight="204.0" fitWidth="656.0" layoutX="21.0" layoutY="6.0">
+               <image>
+                  <Image url="@../data/header.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/capacitacion</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">ok</property>
+    <property name="connection.pool_size">1</property>
+    <property name="show_sql">true</property>
+    <property name="hbm2ddl.auto">update</property>
+    <mapping class="model.pojo.Grupo"/>
+    <mapping class="model.pojo.Lugar"/>
+    <mapping class="model.pojo.Cargo"/>
+    <mapping class="model.pojo.Especialidad"/>
+    <mapping class="model.pojo.Modo_formacion"/>
+    <mapping class="model.pojo.Responsable"/>
+    <mapping class="model.pojo.Trabajador"/>
+    <mapping class="model.pojo.Capacitacion"/>
+    <mapping class="model.pojo.Trabajador_Capacitacion"/>
+  </session-factory>
+</hibernate-configuration>
