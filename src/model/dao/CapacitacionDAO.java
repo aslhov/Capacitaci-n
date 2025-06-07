@@ -259,7 +259,7 @@ public class CapacitacionDAO extends DAO {
 
     }
 
-    public boolean eliminarTrabajador(Capacitacion c) throws HibernateException {
+    public boolean eliminarCapacitacion(Capacitacion c) throws HibernateException {
 
         boolean flag;
 
