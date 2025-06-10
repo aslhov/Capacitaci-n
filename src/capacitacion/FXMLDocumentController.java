@@ -1172,6 +1172,7 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
+    
 
     ///////////////////////////TABLA CAPACITACIÓN//////////////////////
     @FXML
@@ -1457,7 +1458,23 @@ public class FXMLDocumentController implements Initializable {
             }
         }
     }
+    @FXML
+    private void eliminarCapacitacion(ActionEvent event) {
+            if (table_capacitacion.getSelectionModel().getSelectedItem() != null) {
+            TreeItem<CapacitacionView> cview = (TreeItem<CapacitacionView>) table_capacitacion.getSelectionModel().getSelectedItem();
+            if (menssager.showMessajeCONFIRMATION(null, "WARNING", "Seguro que quiere eliminar esta capacitación ")) {
+                Capacitacion t = cdao.getCapacitacion(cview.getValue().getId()).get(0);
+                if (cdao.eliminarCapacitacion(t)) {
+                    List<Capacitacion> list = cdao.getCapacitacion();
+                    llenarTablaAcciones(list);
+                    menssager.showMessajeINFORMATION("", "", "Se eliminaron los datos correctamente", Alert.AlertType.INFORMATION);
+                } else {
+                    menssager.showMessajeINFORMATION(null, "Error", "Error al eliminar", Alert.AlertType.ERROR);
+                }
+            }
+        }
 
+    }
 /////////////////////////////////CAPACITACIÓN - TRABAJADOR//////////////////////
 ///////////////////////////TABLA CAPACITACIÓN - TRABAJADOR//////////////////////
     public void llenarTablaCapacitacion(List<Trabajador_Capacitacion> cap) {
