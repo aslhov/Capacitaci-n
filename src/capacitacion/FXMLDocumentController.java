@@ -1461,12 +1461,17 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void eliminarCapacitacion(ActionEvent event) {
             if (table_capacitacion.getSelectionModel().getSelectedItem() != null) {
-            TreeItem<CapacitacionView> cview = (TreeItem<CapacitacionView>) table_capacitacion.getSelectionModel().getSelectedItem();
+            TreeItem<Trabajador_CapacitacionView> cview = (TreeItem<Trabajador_CapacitacionView>) table_capacitacion.getSelectionModel().getSelectedItem();
             if (menssager.showMessajeCONFIRMATION(null, "WARNING", "Seguro que quiere eliminar esta capacitación ")) {
-                Capacitacion t = cdao.getCapacitacion(cview.getValue().getId()).get(0);
-                if (cdao.eliminarCapacitacion(t)) {
+                Capacitacion t = cdao.getCapacitacion(cview.getValue().getIdC()).get(0);
+                Trabajador_Capacitacion tc = tcdao.getCapacitacionTrabajadorxId(
+                        cview.getValue().getIdT(), cview.getValue().getIdC()).get(0);
+                if (tcdao.eliminarTrabCap(tc)) {
+                    cdao.eliminarCapacitacion(t);
+                    List<Trabajador_Capacitacion> lista = tcdao.getALLCapacitacionxTrabajador();
                     List<Capacitacion> list = cdao.getCapacitacion();
                     llenarTablaAcciones(list);
+                    llenarTablaCapacitacion(lista);
                     menssager.showMessajeINFORMATION("", "", "Se eliminaron los datos correctamente", Alert.AlertType.INFORMATION);
                 } else {
                     menssager.showMessajeINFORMATION(null, "Error", "Error al eliminar", Alert.AlertType.ERROR);

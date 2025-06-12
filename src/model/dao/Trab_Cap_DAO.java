@@ -81,6 +81,25 @@ public class Trab_Cap_DAO extends DAO {
         }
         return cant;
     }
+    public boolean eliminarTrabCap(Trabajador_Capacitacion tc) throws HibernateException {
+
+        boolean flag;
+
+        try {
+            iniciaOperacion();
+//           getSession().load(Fecha.class, f.getFecha()+f.getHorario());
+            getSession().delete(tc);
+            flag = true;
+
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            flag = false;
+        } finally {
+            terminaOperacion();
+        }
+        return flag;
+
+    }
 
     public List<Long> getContTrabajador(int anyo, String m_form) throws HibernateException {
         List<Long> cant = new ArrayList<>();

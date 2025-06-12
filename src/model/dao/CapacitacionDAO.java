@@ -265,7 +265,7 @@ public class CapacitacionDAO extends DAO {
 
         try {
             iniciaOperacion();
-//            getSession().load(Fecha.class, f.getFecha()+f.getHorario());
+//           getSession().load(Fecha.class, f.getFecha()+f.getHorario());
             getSession().delete(c);
             flag = true;
 
